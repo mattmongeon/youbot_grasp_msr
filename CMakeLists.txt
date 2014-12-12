@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(youbot_kinematics)
+project(youbot_grasp_msr)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   tf
   youbot_description
+
 )
 
 ## System dependencies are found with CMake's conventions
@@ -59,18 +60,18 @@ find_package(catkin REQUIRED COMPONENTS
 #   Service2.srv
 # )
 
+
 ## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
-#   Action1.action
-#   Action2.action
-# )
+#add_action_files(
+#  DIRECTORY action
+#  FILES locateblock.action
+#)
+
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+#	generate_messages(
+#  DEPENDENCIES actionlib_msgs std_msgs
+#)
 
 ###################################
 ## catkin specific configuration ##
@@ -82,10 +83,10 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES youbot_kinematics
-#  CATKIN_DEPENDS roscpp rospy std_msgs tf youbot_description
-#  DEPENDS system_lib
+  LIBRARIES youbot_grasp_msr
+  CATKIN_DEPENDS roscpp rospy std_msgs tf youbot_description 
+  DEPENDS system_lib
+
 )
 
 ###########
@@ -100,19 +101,19 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(youbot_kinematics
-#   src/${PROJECT_NAME}/youbot_kinematics.cpp
+# add_library(youbot_grasp_msr
+#   src/${PROJECT_NAME}/youbot_grasp_msr.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(youbot_kinematics_node src/youbot_kinematics_node.cpp)
+# add_executable(youbot_grasp_msr_node src/youbot_grasp_msr_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(youbot_kinematics_node youbot_kinematics_generate_messages_cpp)
+# add_dependencies(youbot_grasp_msr_node youbot_grasp_msr_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(youbot_kinematics_node
+# target_link_libraries(youbot_grasp_msr_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -131,7 +132,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS youbot_kinematics youbot_kinematics_node
+# install(TARGETS youbot_grasp_msr youbot_grasp_msr_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -156,7 +157,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_youbot_kinematics.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_youbot_grasp_msr.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
