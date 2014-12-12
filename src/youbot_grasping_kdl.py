@@ -179,6 +179,8 @@ class YoubotArm:
 
 		self.have_run_once = False
 
+                self.gripper_width = 0.00999
+
 		print "About to parse URDF..."
 		self.youbot_urdf = URDF.from_parameter_server()
 		
@@ -189,6 +191,7 @@ class YoubotArm:
 		
 		
 		self.arm_joint_pub = rospy.Publisher("arm_1/arm_controller/position_command",JointPositions,queue_size=10)
+                self.gripper_pub = rospy.Publisher("arm_1/gripper_controller/position_command", JointPositions, queue_size=10)
 		self.vel_pub = rospy.Publisher("/cmd_vel", Twist, queue_size=10)
 
 		print "Publishers created"
@@ -198,7 +201,7 @@ class YoubotArm:
 		# Go back to the candle position.
 		print "Initializing to the candle position..."
 		self.publish_arm_joint_positions(armJointPosCandle)
-		rospy.sleep(3.0)
+		rospy.sleep(2.0)
 
 
 		self.joint_state_sub = rospy.Subscriber("joint_states", JointState, self.get_joint_states)
@@ -255,7 +258,7 @@ class YoubotArm:
 			self.vel_command_start_time_sec = -1.0
 
 
-	def publish_arm_joint_positions(self, positions):
+	def publish_arm_joint_positions(self, joint_positions):
 
 		desiredPositions = JointPositions()
 
@@ -265,11 +268,11 @@ class YoubotArm:
 			joint = JointValue()
 			joint.joint_uri = "arm_joint_" + str(i+1)
 			joint.unit = "rad"
-			joint.value = positions[i]
+			joint.value = joint_positions[i]
 
 			jointCommands.append(joint)
 
-		desiredPositions.positions=jointCommands
+		desiredPositions.positions = jointCommands
 
 		self.arm_joint_pub.publish(desiredPositions)
 
@@ -298,7 +301,7 @@ class YoubotArm:
                 pass
 
 
-        def set_gripper_width(self, width):
+        def publish_gripper_width(self, width):
 		  
 		desiredPositions = JointPositions()
 
@@ -306,19 +309,19 @@ class YoubotArm:
 
                 joint = JointValue()
                 joint.joint_uri = "gripper_finger_joint_l"
-                joint.unit = "rad"
+                joint.unit = "m"
                 joint.value = width
                 jointCommands.append(joint)
 
                 joint = JointValue()
                 joint.joint_uri = "gripper_finger_joint_r"
-                joint.unit = "rad"
+                joint.unit = "m"
                 joint.value = width
                 jointCommands.append(joint)
 
-		desiredPositions.positions=jointCommands
+		desiredPositions.positions = jointCommands
 
-		self.arm_joint_pub.publish(desiredPositions)
+                self.gripper_pub.publish(desiredPositions)
 
 
 	def grasp_routine(self):
@@ -348,21 +351,21 @@ class YoubotArm:
 			print q_ik, "\r\n"
 
 			# Publish the IK results.
-			arm_joints = [q_ik[2], q_ik[3], q_ik[4], q_ik[5], q_ik[6]]
-			arm_joints = self.limit_arm_joints(arm_joints)
 			print
 			print "Publishing..."
-			self.publish_arm_joint_positions(arm_joints)
+			arm_above_grasp = [q_ik[2], q_ik[3], q_ik[4], q_ik[5], q_ik[6]]
+			arm_above_grasp = self.limit_arm_joints(arm_above_grasp)
+			self.publish_arm_joint_positions(arm_above_grasp)
 
 			# Sleep for a while to give the arm time to get there.
-			rospy.sleep(5.0)
+			rospy.sleep(1.0)
 
 
                         # --- Open grippers --- #
                         
                         print
                         print "Opening grippers..."
-                        self.set_gripper_width(0.008)
+                        self.publish_gripper_width(0.0099)
                         rospy.sleep(1.0)
 
 
@@ -376,7 +379,7 @@ class YoubotArm:
                         print "pos_at_grasp"
                         print pos_at_grasp
 			pos_at_grasp[0:2] -= q_ik[0:2]
-			pos_at_grasp[2] -= 0.05 # move down 5 cm
+			pos_at_grasp[2] -= 0.1 # move down 5 cm
                         print
 			print "Quaternion"
 			print quat_above_grasp
@@ -399,14 +402,14 @@ class YoubotArm:
 			q_grasp = self.limit_arm_joints(q_grasp)
 			self.publish_arm_joint_positions(q_grasp)
 
-			rospy.sleep(5.0)
+			rospy.sleep(1.0)
 
 			# --- Close the grippers --- #
 			
                         print
                         print "Closing grippers..."
-                        self.set_gripper_width(0.00471)
-                        rospy.sleep(1.0)
+                        self.publish_gripper_width(0.00471)
+                        rospy.sleep(0.5)
                         
 
 			# --- Go to the carry position --- #
