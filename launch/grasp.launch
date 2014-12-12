@@ -1,0 +1,28 @@
+<launch>
+	<arg name="vis" default="false"/>
+
+ 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+
+ 	<!-- static tranform from youbot base to a frame floating in mid-air -->
+ 	<!-- <node pkg="tf" type="static_transform_publisher" name="floating_frame_broadcaster" args="0.28 0 0.1 0 0 0 /base /floating o100" /> -->
+
+	<!-- <param name="robot_description" textfile="$(find youbot_description)/urdf/compiled/youbot.urdf"/> -->
+	<param name="robot_description" textfile="$(find youbot_kinematics)/urdf/youbot_virtual.urdf"/>
+
+	<!--startup youbot driver -->
+
+	<include file="$(find youbot_driver_ros_interface)/launch/youbot_driver.launch"/>
+
+
+
+	<node pkg="youbot_kinematics" type="youbot_grasping_kdl.py" name="youbot_grasping_kdl" output="screen"/>
+
+
+
+ 	<!-- Show in Rviz   -->
+	<group if="$(arg vis)">
+  	       <node name="rviz" pkg="rviz" type="rviz" args="-d $(find youbot_description)/launch/youbot.rviz" respawn="true"/>
+	</group>
+
+</launch>
+
