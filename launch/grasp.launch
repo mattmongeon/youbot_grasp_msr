@@ -1,3 +1,4 @@
+
 <launch>
 	<arg name="vis" default="false"/>
 
@@ -7,7 +8,7 @@
  	<!-- <node pkg="tf" type="static_transform_publisher" name="floating_frame_broadcaster" args="0.28 0 0.1 0 0 0 /base /floating o100" /> -->
 
 	<!-- <param name="robot_description" textfile="$(find youbot_description)/urdf/compiled/youbot.urdf"/> -->
-	<param name="robot_description" textfile="$(find youbot_kinematics)/urdf/youbot_virtual.urdf"/>
+	<param name="robot_description" textfile="$(find youbot_grasp_msr)/urdf/youbot_virtual.urdf"/>
 
 	<!--startup youbot driver -->
 
@@ -15,7 +16,7 @@
 
 
 
-	<node pkg="youbot_kinematics" type="youbot_grasping_kdl.py" name="youbot_grasping_kdl" output="screen"/>
+	<node pkg="youbot_grasp_msr" type="youbot_grasping_kdl.py" name="youbot_grasping_kdl" output="screen"/>
 
 
 
