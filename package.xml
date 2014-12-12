@@ -19,7 +19,7 @@
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/youbot_kinematics</url> -->
+  <!-- <url type="website">http://wiki.ros.org/youbot_grasp_msr</url> -->
 
 
   <!-- Author tags are optional, mutiple are allowed, one per tag -->
@@ -47,6 +47,7 @@
   <build_depend>brics_actuator_msgs</build_depend>
   <build_depend>tf</build_depend>
   <build_depend>youbot_description</build_depend>
+
   <run_depend>roscpp</run_depend>
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
@@ -54,7 +55,6 @@
   <run_depend>brics_actuator_msgs</run_depend>
   <run_depend>tf</run_depend>
   <run_depend>youbot_description</run_depend>
-
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
