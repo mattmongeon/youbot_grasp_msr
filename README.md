@@ -42,7 +42,7 @@ roslaunch youbot_grasp_msr grasp.launch
 The inverse and forward kinematics of the arm are calculated in order to drive the arm to a predefined position and grasp a square block. The arm then returns to a predefined pose, with the block in its grasp, ready for transportation.
 
 This package is part of a larger project developed by a group of students in the [Northwestern MSR](http://robotics.northwestern.edu/) program. As part of this project, the youBot is commanded which object to grasp using a laser pointer. It navigates to the object using the [youbot_nav_msr
-](https://github.com/jihoonkimMSR/youbot_nav_msr) package, fine tunes its position with the inbuilt RGB camera of the youBot. At this point, the action server calls the youbot_grasp_msr, which has the task of grasping the designated object. 
+](https://github.com/jihoonkimMSR/youbot_nav_msr) package, fine tunes its position with the inbuilt RGB camera of the youBot. At this point, the action server calls the youbot_grasping_kdl.py, which has the task of grasping the designated object. 
 
 Note of caution
 ---------------
