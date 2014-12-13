@@ -18,11 +18,14 @@ The package dependancies include:
 The following dependancies are clonable via github:
 
 1) [ROS hrl-kdl](https://github.com/gt-ros-pkg/hrl-kdl)
+
 2) [ROS urdfdom](https://github.com/ros/urdfdom)
+
 3) [brics_actuator](http://wiki.ros.org/brics_actuator) ( The brics messages are required by the hrl-kdl) 
 
 The package also relies on the following packages, installable from apt-get in Hydro. 
 4) [youbot_driver](https://github.com/youbot/youbot_driver) 
+
 5) [youbot_driver_ros_interface](https://github.com/youbot/youbot_driver_ros_interface)
 
 
@@ -51,7 +54,8 @@ Here are a few links that may be useful in figuring out what is going on with th
 
 The [youBot_arm_test](https://github.com/youbot/youbot_driver_ros_interface/blob/hydro-devel/src/examples/youbot_arm_test.cpp) package is a good place to get started with controlling the youBot arm. 
 
-The authors of this package also found [youbot_teleop](https://github.com/adamjardim/youbot_teleop) a helpful tool in during the development and testing of the youbot_grasp_msr package. 
+The authors of this package also found [youbot_teleop](https://github.com/adamjardim/youbot_teleop) a helpful tool
+during the development and testing of the youbot_grasp_msr package. 
 
 [Unified Closed Form Inverse Kinematics for the KUKA youBot](http://ieeexplore.ieee.org/xpl/articleDetails.jsp?reload=true&arnumber=6309496) outlines a nice technique for solving the IK problem for the youBot with full 8-DOF youBot (3 from the base and 5 from the arm). The developers of youbot_grasp_msr wish to implement the method proposed in this paper in the near future. 
 
