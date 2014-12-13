@@ -24,6 +24,7 @@ The following dependancies are clonable via github:
 3) [brics_actuator](http://wiki.ros.org/brics_actuator) ( The brics messages are required by the hrl-kdl) 
 
 The package also relies on the following packages, installable from apt-get in Hydro. 
+
 4) [youbot_driver](https://github.com/youbot/youbot_driver) 
 
 5) [youbot_driver_ros_interface](https://github.com/youbot/youbot_driver_ros_interface)
