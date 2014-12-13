@@ -32,8 +32,10 @@ jointInitialize= [0.01007,.635971,-1.91989,1.04424,2.87619]
 jointGuessForGrasp=[0.0, 0.0, 1.52, 1.84, -1.26, 2.4, 3.10]
 
 armJointPosCandle = np.array([2.9496, 1.1344, -2.5482, 1.789, 2.9234])
+armJointPos1 = np.array([3.7565, 1.4618, -2.007, 2.255, 2.9362])
+armJointPos2 = np.array([4.5634, 1.789, -1.4655, 2.721, 2.9362])
 
-gripperWidthAtGrasp = 0.00411
+gripperWidthAtGrasp = 0.00471
 gripperWidthOpen = 0.0099
 
 # Position and orientation above the grasping target
@@ -272,6 +274,15 @@ class YoubotArm:
         rospy.sleep(2)
 
         # Initialize at the candle position.
+        self.publish_arm_joint_positions(armJointPosCandle)
+        rospy.sleep(2.0)
+
+        self.publish_arm_joint_positions(armJointPos1)
+        rospy.sleep(3.0)
+
+        self.publish_arm_joint_positions(armJointPos2)
+        rospy.sleep(10.0)
+
         self.publish_arm_joint_positions(armJointPosCandle)
         rospy.sleep(2.0)
         
