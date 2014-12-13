@@ -213,7 +213,15 @@ def inverse_biased(kin, pose, q_init, q_bias, q_bias_weights, rot_weight=1.0,
         q_out = np.array(kin.clip_joints_safe(q_out))
     return q_out
 
-# 
+# Takes in a parameter values and clamps it between the parameter low and high limits.
+#
+# Params:
+# value - the value to be limited.
+# low_limit - the lower bound on the value.
+# high_limit - the upper bound on the value.
+#
+# Returns:
+# The limited value.
 
 def low_high_limit(value, low_limit, high_limit):
     if low_limit >= high_limit:
@@ -227,6 +235,7 @@ def low_high_limit(value, low_limit, high_limit):
 
     return value
 
+# A class representing the youBot arm that provides some control over it.
 
 class YoubotArm:
 
